@@ -1,7 +1,5 @@
 # [Yii2 Argon Dashboard - Free Bootstrap Argon Design Admin]
 
-## PACKAGE IN ALPHA MODE MANY WORK MUST BE MADE !!!
-
 
 [Theme Documentation](https://demos.creative-tim.com/argon-dashboard/docs/getting-started/overview.html) 
 
@@ -62,10 +60,9 @@ use loutrux\argon\widgets\Tabs;
 
 Version logs
 ------------
-
-Version 0.0.1 : Initial commit 
-Version 0.0.2 : Make bootstrap config more simple
-Version 0.0.3 : Improve layouts
+- Version 0.0.1 : Initial commit 
+- Version 0.0.2 : Make bootstrap config more simple
+- Version 0.0.3 : Improve layouts
 
 
 License
