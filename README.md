@@ -63,6 +63,7 @@ use loutrux\argon\widgets\Tabs;
 Version logs
 ------------
 
+Version 0.0.1 : Initial commit
 
 
 License
