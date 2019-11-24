@@ -10,11 +10,12 @@ class Card extends Widget{
 	public $options 		= [];
 	public $tag				= '';
 	public $header			= '';	
-	public $headerOptions	= [];
+	public $headerOptions	= ['class' => 'bg-transparent'];
 	public $headerTitle		= '';
 	public $headerImg		= '';
 	public $headerImgUrl	= '#';
 	public $headerItems		= [];
+	public $headerText		= '';
 	public $body			= '';
 	public $bodyTag			= '';
 	public $bodyOptions		= [];
@@ -27,10 +28,11 @@ class Card extends Widget{
 	public function init(){
 		parent::init();
 
-        Html::addCssClass($this->options, ['class' => 'card shadow'.(($this->headerImg)?' card-profile':'')]);
+		if ($this->options === false) $this->options = [];
+        else Html::addCssClass($this->options, ['class' => 'card shadow '.(($this->headerImg)?' card-profile':'')]);
 		$this->tag = ArrayHelper::remove($this->options, 'tag', 'div');
 
-        Html::addCssClass($this->headerOptions, ['class' => 'card-header bg-transparent']);
+        Html::addCssClass($this->headerOptions, ['class' => 'card-header']);
 		$headerTag = ArrayHelper::remove($this->headerOptions, 'tag', 'div');
 
 		Html::addCssClass($this->bodyOptions, ['class' => 'card-body']);
@@ -61,21 +63,21 @@ class Card extends Widget{
 				,['class' => 'row justify-content-center']);
 				
 			// Prepare links displaying
-			if ($this->header === '')
-				$this->header = Html::tag('div',$headerItems);
+			/*if ($this->header === '')*/
+				$this->header = Html::tag('div',$headerItems.$this->header);
 		} else 
 		// Header without image
-		if (($this->header === '') && (($this->headerTitle !== '') || ($headerItems !== '')))
+		if (/*($this->header === '') && */(($this->headerTitle !== '') || ($headerItems !== '')))
 			$this->header = 
 				Html::tag('div',
-					Html::tag('div',Html::tag('h3',$this->headerTitle,['class' => "mb-0"]),['class' => 'col-6']).
-					Html::tag('div',$headerItems,['class' => 'col-6 text-right'])
+					Html::tag('div',Html::tag('h3',$this->headerTitle,['class' => "mb-0"]),['class' => 'col']).
+					Html::tag('div',$headerItems,['class' => 'col-auto text-right'])
 				,['class' => 'row align-items-center']);
 
 		if ($this->header !== ''){
 			// Multiple headers can be define in an array
 			if (!is_array($this->header))
-				echo Html::tag($headerTag, $this->header, $this->headerOptions);
+				echo Html::tag($headerTag, $this->header.$this->headerText, $this->headerOptions);
 			else {
 				
 				echo Html::beginTag($headerTag, $this->headerOptions);
@@ -83,6 +85,7 @@ class Card extends Widget{
 				foreach ($this->header as $head)
 					echo Html::tag('div',$head,['class' => 'col']);
 				echo Html::EndTag('div');
+				echo $this->headerText;
 				echo Html::EndTag($headerTag);
 
 			}

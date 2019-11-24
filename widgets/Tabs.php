@@ -10,9 +10,11 @@ class Tabs extends Widget{
 
 	public $items			= [];
 	public $linkOptions		= [];
+	public $navOptions		= [];
 	public $bodyOptions		= null;
 	public $loadingContent = '<i class="fas fa-sync fa-spin fa-fw"></i>';
 	public $position	= 'above';
+	public $pills		= 'default';
 
 	const POS_ABOVE 	= 'above';
 	const POS_BELOW 	= 'below';
@@ -26,8 +28,8 @@ class Tabs extends Widget{
         //Html::addCssClass($this->options, ['class' => 'card-profile-stats d-flex justify-content-center', 'style' => 'flex-flow: row wrap;']);
 		switch ($this->position){
 			case self::POS_ABOVE :
-				$navClass 			= 'mb-2';
-				$contentItemsClass 	= '';
+				$navClass 			= 'py-2 bg-transparent';
+				$contentItemsClass 	= 'bg-gradient-secondary-dark_ no-border';
 				$navUlClass 		= 'flex-md-row';
 				$navLiClass 		= '';
 				break;
@@ -38,6 +40,8 @@ class Tabs extends Widget{
 				$navLiClass 		= 'col pl-3 pr-0 mb-1';
 				break;
 		}
+
+		$navClass .= ' '.ArrayHelper::getValue($this->navOptions,'class');
 
 		//Active tab determination
 		$active = false;
@@ -56,7 +60,9 @@ class Tabs extends Widget{
 			echo Html::beginTag('div',['class' => ' '.$navClass]);
 			if ($this->position == self::POS_LEFT)
 				echo Html::beginTag('div',['class' => 'row m-0']);
-			echo Html::beginTag('ul',['id'=> 'tab-icon-'.$id, 'class' => 'nav nav-pills nav-fill flex-column flex-md-row_ '.$navUlClass, 'role' => 'tablist']);
+			echo Html::beginTag('ul',['id'=> 'tab-icon-'.$id, 'class' => 'nav nav-pills '.(($this->pills !== 'circle')?'nav-fill':'nav-pills-circle justify-content-center').' flex-column flex-md-row_ '.$navUlClass, 'role' => 'tablist']);
+
+			//echo Html::beginTag('ul',['id'=> 'tab-icon-'.$id, 'class' => 'nav nav-pills nav-fill flex-column flex-md-row_ '.$navUlClass, 'role' => 'tablist']);
 			
 			foreach($this->items as $index => $item)
 			{
@@ -86,11 +92,11 @@ class Tabs extends Widget{
 				echo Html::endTag('div');
 			echo Html::endTag('div');
 		}
-		Html::addCssClass($this->bodyOptions, ['class' => 'bg-transparent card-body']); 
+		Html::addCssClass($this->bodyOptions, ['class' => 'card-body']); 
 		//Content tab rendering
 		if (is_array($this->items))
 		{
-			echo Html::beginTag('div',['class' => 'bg-transparent card shadow '.$contentItemsClass]);
+			echo Html::beginTag('div',['class' => 'bg-transparent card '.$contentItemsClass]);
 			echo Html::beginTag('div',$this->bodyOptions);
 			echo Html::beginTag('div',['class' => 'bg-transparent tab-content', 'id' => 'tab-content-'.$id]);
 
@@ -99,8 +105,25 @@ class Tabs extends Widget{
 				$active = (ArrayHelper::getValue($item,'active') == true)?'show active':'';
 				if (ArrayHelper::getValue($item,'active') && ArrayHelper::getValue($item,'linkOptions.data-url')){
 					$linkId = 'tabs-icons-link-pjax'.$id.$index;
+					$pjaxId = 'tabs-icons-text-pjax'.$id.$index;
 					$script = <<< JS
 					$(document).ready(function() {
+						$("#$pjaxId").on('pjax:error', function (event) {
+							event.preventDefault();
+							if ($("#$linkId").attr('data-pjaxload-count') == undefined) 
+								$("#$linkId").attr('data-pjaxload-count',12);
+
+							$("#$linkId").attr(
+								'data-pjaxload-count',
+								$("#$linkId").attr('data-pjaxload-count') - 1
+							);
+							
+							if ($("#$linkId").attr('data-pjaxload-count') > 0)
+								$("#$linkId").click();
+							else if ($("#$linkId").attr('data-pjaxload-count') <= 0)
+								$("#$pjaxId").html("loading error");
+						});
+		
 						$("#$linkId").click();
 					});
 					JS;

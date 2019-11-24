@@ -8,6 +8,7 @@
 namespace loutrux\argon\widgets;
 
 use Yii;
+use yii\bootstrap\Widget;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 
@@ -33,7 +34,7 @@ use yii\helpers\Html;
  * @author Qiang Xue <qiang.xue@gmail.com>
  * @since 2.0
  */
-class Modal extends \yii\bootstrap\Widget
+class Modal extends Widget
 {
     const SIZE_LARGE = "modal-lg";
     const SIZE_SMALL = "modal-sm";
@@ -49,6 +50,10 @@ class Modal extends \yii\bootstrap\Widget
      * @since 2.0.1
      */
     public $headerOptions;
+
+    public $dialogOptions = [];
+    public $contentOptions = [];
+
     /**
      * @var array body options
      * @see \yii\helpers\Html::renderTagAttributes() for details on how attributes are being rendered.
@@ -112,8 +117,10 @@ class Modal extends \yii\bootstrap\Widget
 
         echo $this->renderToggleButton() . "\n";
         echo Html::beginTag('div', $this->options) . "\n";
-        echo Html::beginTag('div', ['class' => 'modal-dialog ' . $this->size]) . "\n";
-        echo Html::beginTag('div', ['class' => 'modal-content']) . "\n";
+        echo Html::beginTag('div', $this->dialogOptions) . "\n";
+        //echo Html::beginTag('div', ['class' => 'modal-dialog ' . $this->size]) . "\n";
+        echo Html::beginTag('div', $this->contentOptions) . "\n";
+        //echo Html::beginTag('div', ['class' => 'modal-content']) . "\n";
         echo $this->renderHeader() . "\n";
         echo $this->renderBodyBegin() . "\n";
     }
@@ -140,7 +147,7 @@ class Modal extends \yii\bootstrap\Widget
     {
         $button = $this->renderCloseButton();
         if ($button !== null) {
-            $this->header = $this->header . "\n" . $button;
+            $this->header = $button . "\n" . $this->header;
         }
         if ($this->header !== null) {
             Html::addCssClass($this->headerOptions, ['widget' => 'modal-header']);
@@ -231,7 +238,10 @@ class Modal extends \yii\bootstrap\Widget
             'role' => 'dialog',
             'tabindex' => -1,
         ], $this->options);
+
         Html::addCssClass($this->options, ['widget' => 'modal']);
+        Html::addCssClass($this->dialogOptions, ['class' => 'modal-dialog ' . $this->size]);
+        Html::addCssClass($this->contentOptions, ['class' => 'modal-content']);
 
         if ($this->clientOptions !== false) {
             $this->clientOptions = array_merge(['show' => false], $this->clientOptions);

@@ -74,6 +74,8 @@ class NavBar extends \yii\bootstrap\Widget
      * You may set it to `null` if you want to have no link at all.
      */
     public $brandUrl = false;
+
+    public $brandAfter = false;
     /**
      * @var string the HTML rendered when page is scrolled.
      */
@@ -138,6 +140,7 @@ class NavBar extends \yii\bootstrap\Widget
         echo $this->renderToggleButton();
         
         if ($this->brandScrollContent !== false) echo Html::beginTag('div',['class' => 'hide-on-scroll','id' => 'hide-on-scroll']);
+            // Brand
             if ($this->brandImage !== false) {
                 $this->brandLabel = Html::img($this->brandImage);
             }
@@ -145,9 +148,13 @@ class NavBar extends \yii\bootstrap\Widget
                 Html::addCssClass($this->brandOptions, ['widget' => 'navbar-brand']);
                 echo Html::a($this->brandLabel, $this->brandUrl === false ? Yii::$app->homeUrl : $this->brandUrl, $this->brandOptions);
             }
+            if ($this->brandAfter !== false) echo $this->brandAfter;
+            // end Brand
         if ($this->brandScrollContent !== false) echo Html::endTag('div');
         if ($this->brandScrollContent !== false) echo Html::tag('div',$this->brandScrollContent,['class' => 'show-on-scroll','id' => 'show-on-scroll']);
         
+        
+
         echo $this->headerContent;
         /** For Argon Dashboard */
         //echo Html::endTag('div');

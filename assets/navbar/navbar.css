@@ -5,15 +5,15 @@
     -o-transition: all 0.6s ease-out;
     -ms-transition: all 0.6s ease-out;
     transition: all 0.6s ease-out;
-    z-index: 3;
+    z-index: 11;
 }
 .navbar-top {
-    z-index: 3 !important;
+    z-index: 11 !important;
 }
 
 .navbar.scrolled {
-    background: rgb(68, 68, 68); /* IE */
-    background: rgba(0, 0, 0, 0.78); /* NON-IE */
+    background-color: rgb(68, 68, 68) !important; /* IE */
+    background-color: rgba(0, 0, 0, 0.78) !important; /* NON-IE */
 }
 
 .collapse.show, .navbar-collapse.collapsing {

@@ -13,7 +13,7 @@ class CardStats extends Widget{
 	public function init(){
 		parent::init();
 
-        Html::addCssClass($this->options, ['class' => 'card-profile-stats d-flex justify-content-center', 'style' => 'flex-flow: row wrap;']);
+        Html::addCssClass($this->options, ['class' => 'card-profile-stats d-flex justify-content-center p-0', 'style' => 'flex-flow: row wrap;']);
 
 		$body = '';
 		if (is_array($this->items))
