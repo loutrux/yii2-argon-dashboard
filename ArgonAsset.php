@@ -15,8 +15,7 @@ class ArgonAsset extends AssetBundle
     public $css = [
         'template/assets/vendor/nucleo/css/nucleo.css',
         'template/assets/vendor/glyphicons/css/glyphicons.css',
-        'assets/navbar/navbar.css',
-        'assets/css/container.css'
+        'assets/navbar/navbar.css'        
     ];
 
     public $js = [
@@ -41,6 +40,7 @@ class ArgonAsset extends AssetBundle
         else 
             $this->css[] = 'template/assets/css/argon.css';
 
+        $this->css[] = 'assets/css/override.css';
         parent::init();
     }
 }

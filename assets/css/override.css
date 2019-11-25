@@ -1,0 +1,59 @@
+
+.main-container {
+    position: relative;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+  }
+  
+  @media (min-width: 768px) {
+    .main-container {
+      width: 750px;
+    }
+  }
+  @media (min-width: 992px) {
+    .main-container {
+      width: 970px;
+    }
+  }
+  @media (min-width: 1200px) {
+    .main-container {
+      width: 1170px;
+    }
+  }
+  
+
+.breadcrumb-item {
+    font-size:.875rem
+}
+
+.breadcrumb-dark {
+    background-color:#172b4d
+}
+
+.breadcrumb-dark .breadcrumb-item {
+    font-weight:600
+}
+
+.breadcrumb-dark .breadcrumb-item a {
+    color:#f6f9fc
+}
+
+.breadcrumb-dark .breadcrumb-item a:hover {
+    color:#fff
+}
+
+.breadcrumb-dark .breadcrumb-item + .breadcrumb-item::before {
+    color:#adb5bd
+}
+
+.breadcrumb-dark .breadcrumb-item.active {
+    color:#dee2e6
+}
+
+.breadcrumb-links {
+    margin: 0;
+    padding: 0;
+    background:0 0
+}
