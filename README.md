@@ -36,10 +36,21 @@ php composer.phar update
 Usage
 -----
 
+## Layouts
+
 Layouts are available as sample in :
 
 @vendor/loutrux/yii2-argon-dashboard/layouts
 
+### argon-admin-alt
+![alt text](https://raw.githubusercontent.com/loutrux/yii2-argon-dashboard/master/screenshots/argon-admin-alt.png)
+
+### argon-main-alt
+![alt text](https://raw.githubusercontent.com/loutrux/yii2-argon-dashboard/master/screenshots/argon-main-alt.png)
+
+![alt text](https://raw.githubusercontent.com/loutrux/yii2-argon-dashboard/master/screenshots/argon-main-alt_scrolled-down.png)
+
+## Widgets
 
 The folowing widgets have been refactored or create to assume compatibility :
 
